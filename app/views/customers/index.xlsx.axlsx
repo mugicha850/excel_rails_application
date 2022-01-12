@@ -1,0 +1,8 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "シート1") do |sheet|
+  @customers.each_with_index do |u, index|
+    
+    sheet.add_row [ "No.", "name", "number" ]
+    sheet.add_row [ index, u.name, u.number ]
+  end
+end

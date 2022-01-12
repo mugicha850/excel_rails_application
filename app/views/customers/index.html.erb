@@ -1,0 +1,19 @@
+<h1>顧客一覧</h1>
+
+<%= link_to "Excel出力", customers_path(@customers_path, format: :xlsx) %>
+
+<% @customers.each do |u| %>
+<p>
+    <%= u.id %>
+    <%= u.name %>
+    <%= u.number%>
+    <%= link_to "編集", edit_customer_path(u.id) %>
+</p>
+<% end %>
+<p>
+    <%= link_to "新規登録", new_customer_path %>
+</p>
+
+<p>
+    <%= link_to "りんご商事", ringo_customers_path %>
+</p>
