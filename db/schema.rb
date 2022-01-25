@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_28_131623) do
+ActiveRecord::Schema.define(version: 2022_01_15_170900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,14 @@ ActiveRecord::Schema.define(version: 2021_12_28_131623) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "staff_events", force: :cascade do |t|
+    t.bigint "staff_member_id", null: false
+    t.string "type", null: false
+    t.datetime "created_at", null: false
+    t.index ["created_at"], name: "index_staff_events_on_created_at"
+    t.index ["staff_member_id", "created_at"], name: "index_staff_events_on_staff_member_id_and_created_at"
+  end
+
   create_table "staff_members", force: :cascade do |t|
     t.string "email", null: false
     t.string "family_name", null: false
@@ -54,4 +62,5 @@ ActiveRecord::Schema.define(version: 2021_12_28_131623) do
     t.index ["family_name_kana", "given_name_kana"], name: "index_staff_members_on_family_name_kana_and_given_name_kana"
   end
 
+  add_foreign_key "staff_events", "staff_members"
 end

@@ -28,6 +28,9 @@ Rails.application.routes.draw do
     #post "sesssion" => "sessions#create", as: :session
     #delete "sesssion" => "sessions#destroy"
     resource :session, only: [ :create, :destroy ]
-    resources :staff_members
+    resources :staff_members do
+      resources :staff_events, only: [ :index ]
+    end
+    resources :staff_events, only: [ :index ]
   end
 end
