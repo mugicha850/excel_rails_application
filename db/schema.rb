@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_15_170900) do
+ActiveRecord::Schema.define(version: 2022_01_24_170329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.string "type", null: false
+    t.string "company_name", default: "", null: false
+    t.string "agreements_ID", null: false
+    t.string "customer_code", null: false
+    t.string "instance_name", null: false
+    t.string "VHOST_code", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_addresses_on_customer_id"
+    t.index ["type", "customer_id"], name: "index_addresses_on_type_and_customer_id", unique: true
+  end
 
   create_table "administrators", force: :cascade do |t|
     t.string "email", null: false
@@ -62,5 +76,6 @@ ActiveRecord::Schema.define(version: 2022_01_15_170900) do
     t.index ["family_name_kana", "given_name_kana"], name: "index_staff_members_on_family_name_kana_and_given_name_kana"
   end
 
+  add_foreign_key "addresses", "customers"
   add_foreign_key "staff_events", "staff_members"
 end
